@@ -20,7 +20,7 @@ public class UserService {
 	}
 	
 	public User findById(Long id) {
-		//Optionalpode se considerar um contêiner 
+		//Optional pode se considerar um contêiner 
 		//de valor único que, ou contém um valor ou não contém
 		Optional<User> obj = userRespository.findById(id);
 		return obj.get();
