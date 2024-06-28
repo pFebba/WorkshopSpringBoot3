@@ -1,11 +1,11 @@
 package com.projetospring.primeiroSpring.entities;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+import com.projetospring.primeiroSpring.entities.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +31,8 @@ public class Order implements Serializable{
 			pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
 	private Instant instant;
 	
+	private Integer orderStatus;
+	
 	//Muitos para um. Quer dizer que para um client, pode haver vários pedidos
 	@ManyToOne
 	//Nome da chave estrangeira que terá no banco de dados
@@ -40,13 +42,23 @@ public class Order implements Serializable{
 	public Order() {
 	}
 
-	public Order(Long id, Instant instant, User client) {
+	public Order(Long id, Instant instant, User client, OrderStatus orderStatus) {
 		super();
 		this.id = id;
 		this.instant = instant;
 		this.client = client;
+		setOrderStatus(orderStatus);
 	}
 
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+	
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus!=null)
+		this.orderStatus = orderStatus.getCode();
+	}
+	
 	public Long getId() {
 		return id;
 	}
