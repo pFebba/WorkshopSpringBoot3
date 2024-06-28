@@ -9,14 +9,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+//Annotation que define a classe User como uma entidade
 @Entity
+//Table especifica o nome da tabela dados, uma vez que a palavra 'User' é
+//uma palavra reservada do banco de dados H2
 @Table(name="tb_user")
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
+	//Define o 'id' como chave primária
 	@Id
+	//Mostra ao JPA que o id será auto incrementável no banco de dados
+	//Dependendo do banco de dados, o strategy não funcionará!
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String name;
 	private String email;
 	private String phone;
