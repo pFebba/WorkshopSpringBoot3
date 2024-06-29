@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.projetospring.primeiroSpring.entities.User;
 import com.projetospring.primeiroSpring.repositories.UserRepository;
+import com.projetospring.primeiroSpring.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -23,7 +24,7 @@ public class UserService {
 		//Optional pode se considerar um contêiner 
 		//de valor único que, ou contém um valor ou não contém
 		Optional<User> obj = userRepository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
