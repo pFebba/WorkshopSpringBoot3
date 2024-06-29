@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 //Classe dependente
 @Entity
-@Table(name = "tb_payament")
+@Table(name = "tb_payment")
 public class Payment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

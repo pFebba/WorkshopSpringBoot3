@@ -13,18 +13,21 @@ import com.projetospring.primeiroSpring.repositories.UserRepository;
 @Service
 public class UserService {
 	@Autowired
-	private UserRepository userRespository;
+	private UserRepository userRepository;
 	
 	public List<User> findAll(){
-		return userRespository.findAll();
+		return userRepository.findAll();
 	}
 	
 	public User findById(Long id) {
 		//Optional pode se considerar um contêiner 
 		//de valor único que, ou contém um valor ou não contém
-		Optional<User> obj = userRespository.findById(id);
+		Optional<User> obj = userRepository.findById(id);
 		return obj.get();
 	}
 	
-
+	public User insert(User obj) {
+		return userRepository.save(obj);
+	}
+	
 }
