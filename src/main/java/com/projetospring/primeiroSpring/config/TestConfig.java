@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.projetospring.primeiroSpring.entities.Category;
 import com.projetospring.primeiroSpring.entities.Order;
+import com.projetospring.primeiroSpring.entities.OrderItem;
 import com.projetospring.primeiroSpring.entities.Product;
 import com.projetospring.primeiroSpring.entities.User;
 import com.projetospring.primeiroSpring.entities.enums.OrderStatus;
 import com.projetospring.primeiroSpring.repositories.CategoryRepository;
+import com.projetospring.primeiroSpring.repositories.OrderItemRepository;
 import com.projetospring.primeiroSpring.repositories.OrderRepository;
 import com.projetospring.primeiroSpring.repositories.ProductRepository;
 import com.projetospring.primeiroSpring.repositories.UserRepository;
@@ -35,6 +37,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	//Tudo dentro desse método será executado quando a aplicação for iniciada
 	@Override
@@ -67,7 +72,22 @@ public class TestConfig implements CommandLineRunner {
 	    Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 	    categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 	    productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+	   
+	    cat2.getProducts().add(p1);
+	    cat1.getProducts().add(p2);
+	    cat3.getProducts().add(p2);
+	    cat3.getProducts().add(p3);
+	    cat3.getProducts().add(p4);
+	    cat2.getProducts().add(p5);
+	   
+	    categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 	    
+	    OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+	    OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+	    OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+	    OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+	    
+	    orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 	}
 	
 	
