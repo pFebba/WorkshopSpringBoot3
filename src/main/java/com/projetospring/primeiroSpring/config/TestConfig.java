@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.projetospring.primeiroSpring.entities.Category;
 import com.projetospring.primeiroSpring.entities.Order;
 import com.projetospring.primeiroSpring.entities.OrderItem;
+import com.projetospring.primeiroSpring.entities.Payment;
 import com.projetospring.primeiroSpring.entities.Product;
 import com.projetospring.primeiroSpring.entities.User;
 import com.projetospring.primeiroSpring.entities.enums.OrderStatus;
@@ -73,14 +74,14 @@ public class TestConfig implements CommandLineRunner {
 	    categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 	    productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 	   
-	    cat2.getProducts().add(p1);
-	    cat1.getProducts().add(p2);
-	    cat3.getProducts().add(p2);
-	    cat3.getProducts().add(p3);
-	    cat3.getProducts().add(p4);
-	    cat2.getProducts().add(p5);
+	    p1.getCategories().add(cat2);	    
+	    p2.getCategories().add(cat1);	
+	    p2.getCategories().add(cat3);	
+	    p3.getCategories().add(cat3);	
+	    p4.getCategories().add(cat3);	
+	    p5.getCategories().add(cat2);	
 	   
-	    categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+	    productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 	    
 	    OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
 	    OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
@@ -88,6 +89,11 @@ public class TestConfig implements CommandLineRunner {
 	    OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 	    
 	    orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+	    
+	    Payment pay1 = new Payment(null,Instant.parse("2019-07-22T15:21:22Z"),o3);
+	    o3.setPayment(pay1);
+	    orderRepository.save(o3);
+	    
 	}
 	
 	

@@ -2,7 +2,6 @@ package com.projetospring.primeiroSpring.entities.enums;
 
 public enum OrderStatus {
 	WAITING_PAYAMENT(1), PAID(2), SHIPPED(3), DELIVERED(4), CANCELED(5);
-
 	private int code;
 
 	private OrderStatus(int code) {

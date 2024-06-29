@@ -1,16 +1,16 @@
 package com.projetospring.primeiroSpring.entities;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -24,8 +24,11 @@ public class Category implements Serializable {
 	private Long id;
 	private String name;
 	// @Transient: JPA não reconhece
-	@ManyToMany
-	@JoinTable(name = "tb_category_product", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories")
+	//@ManyToMany
+	//@JoinTable(name = "tb_category_product", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private Set<Product> products = new HashSet<>();
 
 	public Category() {
